@@ -9,7 +9,9 @@ FECHA: 01/08/2023
 import os
 import pandas as pd
 
-data_dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../data/')
+data_dir_path = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)),
+    '../data/')
 dataset_train = data_dir_path + 'Train_BigMart.csv'
 dataset_test = data_dir_path + 'Test_BigMart.csv'
 
