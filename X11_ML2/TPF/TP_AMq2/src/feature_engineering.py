@@ -1,15 +1,14 @@
 """
 feature_engineering.py
 
-COMPLETAR DOCSTRING
-
-DESCRIPCIÓN:
-AUTOR:
-FECHA:
+DESCRIPCIÓN: Este script ejecuta el preprocesamiento de los datos.
+AUTOR: Paula Centioni y Marcos Brito
+FECHA: 01/08/2023
 """
 
 # Imports
 import pandas as pd
+import argparse
 
 
 class FeatureEngineeringPipeline(object):
@@ -32,8 +31,7 @@ class FeatureEngineeringPipeline(object):
     
     def data_transformation(self, data: pd.DataFrame) -> pd.DataFrame:
         """
-        COMPLETAR DOCSTRING
-        
+        Transform the input data into the desired output data.
         """
         data['Outlet_Establishment_Year'] = 2020 - data['Outlet_Establishment_Year']
         # Unificando etiquetas para 'Item_Fat_Content'
@@ -73,11 +71,6 @@ class FeatureEngineeringPipeline(object):
         # Codificación de variables ordinales:
         dataframe = data.drop(columns=['Item_Type', 'Item_Fat_Content']).copy()
 
-        serie_var = dataframe['Outlet_Size'].unique()
-        serie_var.sort()
-        serie_var = dataframe['Outlet_Location_Type'].unique()
-        serie_var.sort()
-
         # FEATURES ENGINEERING: Codificación de variables ordinales
         dataframe['Outlet_Size'] = dataframe['Outlet_Size'].replace({'High': 2, 'Medium': 1, 'Small': 0})
         dataframe['Outlet_Location_Type'] = dataframe['Outlet_Location_Type'].replace({'Tier 1': 2, 'Tier 2': 1, 'Tier 3': 0}) # Estas categorias se ordenaron asumiendo la categoria 2 como más lejos
@@ -92,18 +85,28 @@ class FeatureEngineeringPipeline(object):
     def write_prepared_data(self, transformed_dataframe: pd.DataFrame) -> None:
         """
         Write the prepared data to the DataLake.
-        
         """
+        print('writing prepared data to {}'.format(self.output_path))
         transformed_dataframe.to_csv(self.output_path, index=False)
         return None
 
     def run(self):
+        """
+        Run the Feature Engineering pipeline.
+        """
+
         df = self.read_data()
         df_transformed = self.data_transformation(df)
-        # self.write_prepared_data(df_transformed)
+        self.write_prepared_data(df_transformed)
 
   
 if __name__ == "__main__":
-    filename = 'Test_BigMart'
-    FeatureEngineeringPipeline(input_path = '../data/'+filename+'.csv',
-                               output_path = '../output/'+filename+'_processed.csv').run()
+    parser = argparse.ArgumentParser(description='Feature Engineering')
+    parser.add_argument('input_path', type=str, help='Input path')
+    parser.add_argument('output_path', type=str, help='Output path')
+    args = parser.parse_args()
+        
+    FeatureEngineeringPipeline(input_path = args.input_path,
+                               output_path = args.output_path).run()
+    
+    

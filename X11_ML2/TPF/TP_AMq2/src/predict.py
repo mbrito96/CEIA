@@ -1,14 +1,16 @@
 """
 predict.py
 
-COMPLETAR DOCSTRING
-
-DESCRIPCIÓN:
-AUTOR:
-FECHA:
+DESCRIPCIÓN: Este script se encarga de realizar las predicciones sobre el dataset.
+AUTOR: Paula Centioni y Marcos Brito
+FECHA: 01/08/2023
 """
 
 # Imports
+import pandas as pd
+from pandas import DataFrame
+import argparse
+import pickle as pkl
 
 class MakePredictionPipeline(object):
     
@@ -20,40 +22,48 @@ class MakePredictionPipeline(object):
                 
     def load_data(self) -> pd.DataFrame:
         """
-        COMPLETAR DOCSTRING
+        Cargar el dataset de entrada en un DataFrame de Pandas.
         """
-
+        data = pd.read_csv(self.input_path) 
         return data
 
     def load_model(self) -> None:
         """
-        COMPLETAR DOCSTRING
+        Cargar el modelo de inferencia.
         """    
-        self.model = load_model(self.model_path) # Esta función es genérica, utilizar la función correcta de la biblioteca correspondiente
-        
+
+        with open(self.model_path, 'rb') as file:
+            self.model = pkl.load(file)
+
         return None
 
 
     def make_predictions(self, data: DataFrame) -> pd.DataFrame:
         """
-        COMPLETAR DOCSTRING
+        Realizar las predicciones sobre el dataset de entrada.
         """
    
-        new_data = self.model.predict(data)
+        if self.model is None:
+            raise Exception("Model not loaded")
+        
+        new_data = pd.DataFrame(self.model.predict(data))
 
         return new_data
 
 
     def write_predictions(self, predicted_data: DataFrame) -> None:
+        """ 
+        Guardar las predicciones en el path de salida.
         """
-        COMPLETAR DOCSTRING
-        """
-
+        predicted_data.to_csv(self.output_path, index=False)
+        print(predicted_data)
         return None
 
 
     def run(self):
-
+        """ 
+        Ejecutar el pipeline completo.
+        """ 
         data = self.load_data()
         self.load_model()
         df_preds = self.make_predictions(data)
@@ -61,10 +71,15 @@ class MakePredictionPipeline(object):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Feature Engineering')
+    parser.add_argument('input_path', type=str, help='Input path')
+    parser.add_argument('output_path', type=str, help='Output path')
+    parser.add_argument('model_path', type=str, help='Model path')
+    args = parser.parse_args()
     
-    spark = Spark()
+    # spark = Spark()
     
-    pipeline = MakePredictionPipeline(input_path = 'Ruta/De/Donde/Voy/A/Leer/Mis/Datos',
-                                      output_path = 'Ruta/Donde/Voy/A/Escribir/Mis/Datos',
-                                      model_path = 'Ruta/De/Donde/Voy/A/Leer/Mi/Modelo')
+    pipeline = MakePredictionPipeline(input_path = args.input_path,
+                                      output_path = args.output_path,
+                                      model_path = args.model_path)
     pipeline.run()  
