@@ -8,13 +8,13 @@ codirector, % Uncomment to add a codirector to the title page
 
 
 % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
-\titulo{Inteligencia Artificial en sistemas embebidos} 
+\titulo{Inteligencia artificial en sistemas embebidos} 
 
 % Nombre del posgrado, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \degreename
 \posgrado{Carrera de Especialización en Inteligencia Artificial}
 
 % Tu nombre, se puede usar el cualquier lugar del documento con el comando \authorname
-\autor{Marcos Brito Devoto} 
+\autor{Marcos Brito Devoto (Ingeniero Electrónico)} 
 
 % El nombre del director y co-director, se puede usar el cualquier lugar del documento con el comando \supname y \cosupname y \pertesupname y \pertecosupname
 \director{\textcolor{red}{@todo Nombre del Director}}
@@ -37,7 +37,7 @@ codirector, % Uncomment to add a codirector to the title page
  
 \fechaINICIO{17 de octubre de 2023}		%Fecha de inicio de la cursada de GdP \fechaInicioName
 \fechaFINALPlan{22 de abril de 2024} 	%Fecha de final de cursada de GdP
-\fechaFINALTrabajo{@todo 15 de mayo de 2022}	%Fecha de defensa pública del trabajo final
+\fechaFINALTrabajo{@todo 15 de mayo de 2024}	%Fecha de defensa pública del trabajo final
 
 
 \begin{document}
@@ -66,8 +66,8 @@ codirector, % Uncomment to add a codirector to the title page
 \rowcolor[HTML]{C0C0C0} 
 Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios realizados} & Fecha      \\ \hline
 0      & Creación del documento                                 &\fechaInicioName \\ \hline
-1      & Se completa hasta el punto 4 inclusive                 & 31/10/2023 \\ \hline
-2      & Se completa hasta el punto 7 inclusive                                 & 07/11/2023 \\ \hline
+1      & Se completa hasta el punto 4 inclusive                 & 31 de octubre de 2023 \\ \hline
+2      & Se completa hasta el punto 7 inclusive                                 & 7 de noviembre de 2023 \\ \hline
 %3      & Se completa hasta el punto 11 inclusive                & dd/mm/aaaa \\ \hline
 %4      & Se completa el plan	                                 & dd/mm/aaaa \\ \hline
 \end{tabularx}
@@ -109,25 +109,25 @@ Se adjunta a esta acta la planificación inicial.
 \section{1. Descripción técnica-conceptual del proyecto a realizar}
 \label{sec:descripcion}
 
-El proyecto final surge a partir de una necesidad de la empresa \empclientename  de incursionar en el campo de la inteligencia artificial en sistemas embebidos. Cómo consultora, la compañia cuenta con vasta experiencia en desarrollo de modelos de inteligencia artificial. Estos modelos suelen tomar datos de múltiples sensores (o nodos) desplegados en el campo que descargan datos a una computadora central o a la nube, donde se ejecutan los modelos de inteligencia artificial y se proveen métricas de interés al cliente. Una tercera alternativa consiste en ejecutar estos algoritmos directamente en los nodos, también llamado ``\textit{on-the-edge}", ahorrando costos de transmisión y uso de batería, entre otras importantes ventajas. Actualmente, la empresa no cuenta con experiencia en este tipo de tecnología, por lo que se encuentra limitada para utilizarla en proyectos de clientes donde éste enfoque aportaría gran valor.
+El proyecto final surge a partir de una necesidad de la empresa \empclientename  de incursionar en el campo de la inteligencia artificial en sistemas embebidos. Como consultora, la compañia cuenta con vasta experiencia en desarrollo de modelos de inteligencia artificial. Estos modelos suelen tomar datos de múltiples sensores (o nodos) desplegados en el campo que descargan datos a una computadora central o a la nube, donde se ejecutan los modelos de inteligencia artificial y se proveen métricas de interés al cliente. Una tercera alternativa consiste en ejecutar estos algoritmos directamente en los nodos, también llamado ``\textit{on-the-edge}", ahorrando costos de transmisión y uso de batería, entre otras importantes ventajas. Actualmente, la empresa no cuenta con experiencia en este tipo de tecnología, por lo que se encuentra limitada para utilizarla en proyectos de clientes donde este enfoque aportaría gran valor.
 
 \textcolor{red}{@todo discutir de confidencialidad con Very: ¿Existen o aplican condiciones especiales al proyecto, financiamiento de algún programa público o privado, acuerdos de confidencialidad, acuerdos sobre la propiedad intelectual de los entregables u otros?}
 
-En la Figura \ref{fig:EdgeVsCent} se muestra la diferencia entre dos arquitecturas muy utilizadas en aplicaciones IoT. En el diagrama de la izquierda, cada uno de los nodos es encargado de tomar mediciones y enviar los datos a la nube para ser procesados. Esto simplifica el diseño de los nodos significativamente, cuya programación es sencilla y actúan unicamente como recolectores de datos. La complejidad se traslada a la nube, donde se debe mantener una base de datos y poder de computo suficiente para almacenar y procesar toda la información proveniente de los sensores. Además, se debe garantizar una conexión robusta entre los nodos y el servidor. Por otro lado, en el diagrama de la derecha se puede ver una arquitectura descentralizada, donde cada nodo realiza las mediciones y procesa los datos localmente. Esto se conoce como ``\textit{edge-computing}", ya que se realiza el cómputo de la salida ``en el borde". De esta forma, el nodo solo debe transmitir las métricas de salida de los algoritmos, disminuyendo significativamente la cantidad de información que se comunica.
+En la figura \ref{fig:EdgeVsCent} se muestra la diferencia entre dos arquitecturas muy utilizadas en aplicaciones IoT. En el diagrama de la izquierda, cada uno de los nodos es encargado de tomar mediciones y enviar los datos a la nube para ser procesados. Esto simplifica el diseño de los nodos significativamente, cuya programación es sencilla y actúan unicamente como recolectores de datos. La complejidad se traslada a la nube, donde se debe mantener una base de datos y poder de computo suficiente para almacenar y procesar toda la información proveniente de los sensores. Además, se debe garantizar una conexión robusta entre los nodos y el servidor. Por otro lado, en el diagrama de la derecha se puede ver una arquitectura descentralizada, donde cada nodo realiza las mediciones y procesa los datos localmente. Esto se conoce como ``\textit{edge-computing}", ya que se realiza el cómputo de la salida ``en el borde". De esta forma, el nodo solo debe transmitir las métricas de salida de los algoritmos, disminuyendo significativamente la cantidad de información que se comunica.
 
 \begin{figure}[htpb]
 \centering 
-\includegraphics[height=.3\textheight]{./Figuras/EdgeVsCentralizedAI.png}
+\includegraphics[height=.4\textheight]{./Figuras/EdgeVsCentralizedAI2.png}
 \caption{Diagrama de \textit{arquitecturas IoT}.}
 \label{fig:EdgeVsCent}
 \end{figure}
 
 Entre las ventajas del enfoque descentralizado se encuentran:
 \begin{itemize}
-\item \textbf{Reducción de la latencia}: el procesamiento de datos en la nube puede ser lento, especialmente en entornos con una conexión de red de baja velocidad, algo muy utilizado en IoT ya que aumenta la duración de la batería que alimenta al nodo. Esto imposibilita su aplicación para aplicaciones en tiempo real, donde se debe obtener la salida del algoritmos en cuestión de menos de 1 segundo. El \textit{edge-computing} permite procesar los datos localmente, lo que reduce la latencia y mejora la respuesta del sistema.
+\item \textbf{Reducción de la latencia}: el procesamiento de datos en la nube puede ser lento, especialmente en redes de comunicaciones de baja velocidad, algo muy utilizado en IoT dado que reduce el consumo de batería. En algunas aplicaciones de tiempo real, donde es necesario conocer el resultado del algoritmo en cuestión de segundos o incluso décimas de segundos, estas demoras originadas por el intercambio de datos con la nube son inaceptables. El \textit{edge-computing} permite procesar los datos localmente, lo que reduce la latencia y mejora la respuesta del sistema.
 \item \textbf{Mejora de la seguridad}: la transferencia de datos a la nube para procesamiento puede exponer información confidencial a riesgos de seguridad. El \textit{edge-computing} reduce el riesgo de acceso no autorizado a los datos, ya que se procesan localmente y solo se transmiten los resultados.
-\item \textbf{Aumento de la eficiencia}: uno de los procesos que más energía consume IoT es la transmisión de datos, ya que generalmente ocurre a través de redes inalámbricas (WiFi, Bluetooth, LoRaWAN, etc). El \textit{edge-computing} reduce la cantidad de datos que es necesario transmitir, lo que genera ahorros de energía considerables. Esto es especialmente importante en dispositivos que deben funcionar durante años con baterías.
-\item \textbf{Reducción de costos}: los servicios en la nube necesarios para ejecutar algoritmos de inteligencia artificial conllevan un costo de mantenimiento mensual que el cliente debe hacer frente cómo un gasto fijo operativo en su negocio. En ciertas aplicaciones, este gasto fijo se puede eliminar casi por completo utilizando un enfoque descentralizado. 
+\item \textbf{Aumento de la eficiencia}: uno de los principales desafíos en los desarrollos de IoT está relacionado con reducir al mínimo el consumo de energía. En particular, la transmisión de datos tiene un gran impacto en la vida útil de la batería del dispositivo ya que generalmente ocurre a través de redes inalámbricas (WiFi, Bluetooth, LoRaWAN, etc). El \textit{edge-computing} reduce la cantidad de datos que es necesario transmitir, lo que genera ahorros de energía considerables. Esto es especialmente importante en dispositivos que deben funcionar durante años con baterías.
+\item \textbf{Reducción de costos}: los servicios en la nube necesarios para ejecutar algoritmos de inteligencia artificial conllevan un costo de mantenimiento mensual que el cliente debe hacer frente como un gasto fijo operativo en su negocio. En ciertas aplicaciones, este gasto fijo se puede eliminar casi por completo utilizando un enfoque descentralizado. 
 \end{itemize}
 
 Las desventajas de utilizar una arquitectura descentralizada son:
@@ -152,9 +152,16 @@ Cliente       & \clientename      &\empclientename	&        	\\ \hline
 Responsable   & \authorname       & Very        	& Alumno 	\\ \hline
 Colaboradores & \textcolor{red}{@todo Preguntar si Jose R?}                  &              	&        	\\ \hline
 Orientador    & \supname	      & \pertesupname 	& Director Trabajo final \\ \hline
-Usuario final & \clientename      &\empclientename	&        	\\ \hline
 \end{tabularx}
 \end{table}
+
+\textbf{Descripción de los roles:}
+\begin{enumerate}
+\item Cliente: el cliente es la empresa y, en particular, el área de \textit{data science}, cuyos ingenieros serán los que utilicen la investigación realizada para distintos proyectos. La empresa deberá suministrar los recursos (monetarios y de tiempo) para poder finalizar el proyecto. 
+\item Responsable: el encargado de llevar a cabo la ejecución del proyecto.
+\item Colaboradores: son aquellas personas dentro del área de \textit{data science} que aportarán ideas y opiniones durante el desarrollo del proyecto, para asegurar que éste tenga el mayor grado de utilidad posible para la empresa.
+\end{enumerate}
+
 
 \section{3. Propósito del proyecto}
 \label{sec:proposito}
@@ -164,13 +171,13 @@ El propósito principal de este proyecto es sentar las bases para el desarrollo 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
 
-El alcance del proyecto se centra en el desarrollo de un repositorio \textit{template} para aplicaciones de inteligencia artificial en sistemas embebidos. El objetivo principal es proporcionar una base de herramientas que faciliten el desarrollo de aplicaciones de IA en plataformas de recursos limitados, como microcontroladores. También se incluirá un análisis de las posibilidades de esta tecnología para que \empclientename pueda tomar evaluar rápidamente si es viable su aplicación con un determinado cliente.
+El alcance del proyecto se centra en el desarrollo de un repositorio \textit{template} para aplicaciones de inteligencia artificial en sistemas embebidos. El objetivo principal es proporcionar una base de herramientas que faciliten el desarrollo de aplicaciones de IA en plataformas de recursos limitados, como microcontroladores. También estará incluido un análisis de las capacidades de esta tecnología, lo que permitirá a \empclientename evaluar, durante el comienzo de un nuevo proyecto, si es viable aplicarla con un determinado cliente.
 
 El proyecto incluirá los siguientes elementos:
 
 \begin{enumerate}
 \item Investigación del estado del arte en inteligencia artificial aplicada a sistemas embebidos.
-\item Análisis y evaluación de librerías y \textit{frameworks} disponibles para el desarrollo de aplicaciones de IA en sistemas embebidos.
+\item Análisis y evaluación de bibliotecas y \textit{frameworks} disponibles para el desarrollo de aplicaciones de IA en sistemas embebidos.
 \item Selección de un microcontrolador adecuado para llevar a cabo análisis y pruebas de las aplicaciones de IA.
 \item Creación de un repositorio en Github donde se desarrollará el repositorio \textit{template}.
 \item Implementación de algoritmos de inteligencia artificial en el repositorio \textit{template}, incluyendo \textit{machine learning} clásico, \textit{deep learning} y, si es posible, visión por computadora.
@@ -193,7 +200,7 @@ El alcance del proyecto no incluye:
 Para el desarrollo del presente proyecto se supone que: 
 \begin{itemize}
 	\item Los microcontroladores disponibles comercialmente son capaces de ejecutar los algoritmos de inteligencia artificial implementados en el repositorio \textit{template}.
-	\item Existen librerías y \textit{frameworks} disponibles que sean adecuados para el desarrollo de aplicaciones de IA en sistemas embebidos.
+	\item Existen bibliotecas y \textit{frameworks} disponibles que sean adecuados para el desarrollo de aplicaciones de IA en sistemas embebidos.
 	\item Se tiene una disponibilidad horaria de al menos 600 horas laborales del responsable para realizar el trabajo. 
 	\item \empclientename proporcionará el tiempo y recursos necesarios para poder progresar en la implementación de los algoritmos.
 	\item Los conocimientos adquiridos en el posgrado son suficientes para aplicar las técnicas de IA deseadas.
@@ -203,7 +210,7 @@ Para el desarrollo del presente proyecto se supone que:
 \section{6. Requerimientos}
 \label{sec:requerimientos}
 
-Aclaración: en este proyecto se implementarán múltiples modelos de \textit{machine learning} para evaluar su performance. Por lo tanto, los requerimientos funcionales son genéricos y aplican a todos los modelos a implementar siempre que sea posible. A partir de los requerimientos planteados, se podrá analizar las limitaciones de cada algoritmo y compararlos.
+Aclaración: en este proyecto se implementarán múltiples modelos de \textit{machine learning} para evaluar su performance. Por lo tanto, los requerimientos funcionales son genéricos y aplican a todos los modelos a implementar siempre que sea posible. A partir de los requerimientos planteados, se podrán analizar las limitaciones de cada algoritmo y compararlos.
 
 \begin{enumerate}
 	\item Requerimientos funcionales de los modelos de \textit{machine learning}: 
@@ -217,7 +224,7 @@ Aclaración: en este proyecto se implementarán múltiples modelos de \textit{ma
 	\item Requerimientos de documentación
 		\begin{enumerate}
 			\item La documentación debe mantenerse dentro del mismo repositorio de Github.
-			\item La documentación debe indicar los pasos para instalar el ambiente de desarrollo, incluyendo la instalación de librerías y módulos necesarios.
+			\item La documentación debe indicar los pasos para instalar el ambiente de desarrollo, incluyendo la instalación de bibliotecas y módulos necesarios.
 			\item La documentación debe indicar los pasos para ejecutar cada una de las pruebas que se llevaron a cabo durante el proyecto.
 			\item La documentación debe registrar la investigación realizada en el proyecto, identificando claramente las limitaciones de las tecnologías utilizadas.
 			\item La documentación debe indicar los requerimientos mínimos recomendables de \textit{hardware} para ejecutar este tipo de aplicaciones.
@@ -228,13 +235,13 @@ Aclaración: en este proyecto se implementarán múltiples modelos de \textit{ma
 		\item El protocolo de comunicación debe validar la integridad de los datos.
 		\item La PC debe ser capaz de comunicarse con el nodo para:
 			\begin{enumerate}
-				\item Obtener información del nodo: versión del código, metadata del modelo de \textit{machine learning}
-				\item Actualizar los pesos del algoritmo de \textit{machine learning}
+				\item Obtener información del nodo: versión del código, metadata del modelo de \textit{machine learning}.
+				\item Actualizar los pesos del algoritmo de \textit{machine learning}.
 			\end{enumerate}
 		\end{enumerate}
 	\item Requerimiento de testing
 		\begin{enumerate}
-			\item Los modelos de \textit{machine learning} ejecutados en el nodo serán comparados contra las métricas obtenido de ejecutar los mismos modelos en una PC, utilizando Python.
+			\item Los modelos de \textit{machine learning} ejecutados en el nodo serán comparados contra las métricas obtenidas de ejecutar los mismos modelos en una PC, utilizando Python.
 			\item La ejecución de las pruebas debe ser automática mediante un \textit{script}.
 		\end{enumerate}
 \end{enumerate}
@@ -276,9 +283,9 @@ Aclaración: en este proyecto se implementarán múltiples modelos de \textit{ma
 \item Como evaluador, quiero ver métricas de la ejecución de los algoritmos que sean independientes del microprocesador utilizado, para así poder extrapolar las conclusiones a otras plataformas (Puntos: 8).
 \item Como evaluador, quiero ver fácilmente qué tipos de algoritmos de inteligencia artificial se pueden ejecutar en sistemas embebidos de recursos limitados  (Puntos: 1).
 \item Como evaluador, quiero conocer las limitaciones de este tipo de tecnologías, para descartar rápidamente en el caso de que no sea compatible con el proyecto que se quiere desarrollar  (Puntos: 5).
-\item Como desarrollador, quiero tener instrucciones claras para configurar el entorno de desarrollo y así comenzar el desarrollo llo más pronto posible  (Puntos: 3).
+\item Como desarrollador, quiero tener instrucciones claras para configurar el entorno de desarrollo y así comenzar el desarrollo lo más pronto posible  (Puntos: 3).
 \item Como desarrollador, quiero entender las limitaciones de los algoritmos de \textit{machine learning} que se pueden ejecutar en estos sistemas, para desarrollar un modelo acorde (Puntos: 3).
-\item Como desarrollador, quiero poder actualizar los pesos del modelo fácilmente para poder iterar de forma eficiente  (Puntos: 8).
+\item Como desarrollador, quiero poder actualizar los pesos del modelo fácilmente, para poder iterar de forma eficiente  (Puntos: 8).
 \item Como desarrollador, quiero poder tener acceso a las variables internas del modelo siendo ejecutado en el microprocesador, de forma tal de poder validar que el algoritmo se está ejecutando según lo esperado (Puntos: 5).
 \end{itemize}
 
@@ -299,37 +306,37 @@ Los entregables del proyecto son:
 \begin{enumerate}
 \item Investigación y planificación
 	\begin{enumerate}
-	\item Investigación del estado del arte (32 hs)
-	\item Definición de modelos de \textit{machine learning} a implementar (24 hs)
-	\item Selección de los datasets a utilizar para las pruebas de cada modelo (24 hs)
-	\item Selección de la plataforma (microcontrolador) donde se llevarán a cabo las pruebas (24 hs)
-	\item Diseñar arquitectura de firmware del nodo (16 hs)
+	\item Investigación del estado del arte (32 h).
+	\item Definición de modelos de \textit{machine learning} a implementar (24 h).
+	\item Selección de los datasets a utilizar para las pruebas de cada modelo (24 h).
+	\item Selección de la plataforma (microcontrolador) donde se llevarán a cabo las pruebas (24 h).
+	\item Diseñar la arquitectura de firmware del nodo (16 h).
 	\end{enumerate}
 \item Desarrollo de estructura base
 	\begin{enumerate}
-	\item Configurar entorno de desarrollo (24 hs)
-	\item Implementar arquitectura de firmware (40 hs)
-	\item Implementar protocolo de comunicación (20 hs)
-	\item Desarrollar script de interacción nodo-PC (24 hs)
-	\item Implementar flujo del programa: adquisición de datos -> procesamiento -> predicción (40 hs)
+	\item Configurar el entorno de desarrollo (24 h).
+	\item Implementar la arquitectura de firmware (40 h).
+	\item Implementar el protocolo de comunicación (20 h).
+	\item Desarrollar el script de interacción nodo-PC (24 h).
+	\item Implementar el flujo del programa: adquisición de datos -> procesamiento -> predicción (40 h).
 	\end{enumerate}
 \item Desarrollo de algoritmos de inteligencia artificial
 	\begin{enumerate}
-	\item Diseñar módulo de IA y APIs (40 hs)
-	\item Entrenar modelos en Python (40 hs)
-	\item Desplegar modelos de IA en nodo (40 hs)
-	\item Generar muestras de validación y envíar a la PC (24 hs)
-	\item Testing del funcionamiento de los algoritmos (20 hs) 
-	\item Agregar mecanismos de evaluación de performance dentro del código (20 hs)
-	\item Adaptar código para permitir la actualización de pesos del modelo (32 hs) 
+	\item Diseñar el módulo de IA y APIs (40 h).
+	\item Entrenar los modelos en Python (40 h).
+	\item Desplegar el modelos de IA en nodo (40 h).
+	\item Generar las muestras de validación y envíar a la PC (24 h).
+	\item Testing del funcionamiento de los algoritmos (20 h). 
+	\item Agregar los mecanismos de evaluación de performance dentro del código (20 h).
+	\item Adaptar el código para permitir la actualización de pesos del modelo (32 h). 
 	\end{enumerate}
 \item Documentación
 	\begin{enumerate}
-	\item Documentar análisis realizado (20 hs)
-	\item Documentar conclusiones de los modelos implementados y aspectos a tomar en cuenta respecto a la plataforma utilizada. (30 hs)
-	\item Redacción del informe de avance (16 hs).
-	\item Redacción de la memoria del proyecto (40 hs).
-	\item Preparación de la presentación pública (10 hs).
+	\item Documentar el análisis realizado (20 h).
+	\item Documentar las conclusiones de los modelos implementados y aspectos a tomar en cuenta respecto a la plataforma utilizada. (30 h).
+	\item Redacción del informe de avance (16 h).
+	\item Redacción de la memoria del proyecto (40 h).
+	\item Preparación de la presentación pública (10 h).
 	\end{enumerate}
 \end{enumerate}
 
