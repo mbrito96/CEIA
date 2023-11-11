@@ -4,6 +4,7 @@ codirector, % Uncomment to add a codirector to the title page
 ]{charter} 
 
 \usepackage{svg}
+\usepackage{tabularx}
 
 
 % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
@@ -66,10 +67,7 @@ codirector, % Uncomment to add a codirector to the title page
 Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios realizados} & Fecha      \\ \hline
 0      & Creación del documento                                 &\fechaInicioName \\ \hline
 1      & Se completa hasta el punto 4 inclusive                 & 31/10/2023 \\ \hline
-%2      & Se completa hasta el punto 7 inclusive
-%		  Se puede agregar algo más \newline
-%		  En distintas líneas \newline
-%		  Así                                                    & dd/mm/aaaa \\ \hline
+2      & Se completa hasta el punto 7 inclusive                                 & 07/11/2023 \\ \hline
 %3      & Se completa hasta el punto 11 inclusive                & dd/mm/aaaa \\ \hline
 %4      & Se completa el plan	                                 & dd/mm/aaaa \\ \hline
 \end{tabularx}
@@ -186,6 +184,7 @@ El alcance del proyecto no incluye:
 \item No habrá recolección de datos para generar un \textit{dataset}. Para entrenar y evaluar los modelos, se utilizarán \textit{datasets} provistos por \empclientename o de uso público. 
 \item La implementación de soluciones de \textit{edge computing} bajo el contexto específico de IoT, ni tampoco un análisis profundo respecto a la escalabilidad y flexibilidad de éstas arquitecturas. 
 \item Desarrollar nuevas herramientas o tecnologías de inteligencia artificial en sistemas embebidos. El proyecto se centra en conocer y comprender el estado del arte actual en este campo, no en innovación dentro del mismo.
+\item Los modelos de \textit{machine learning} no se entrenarán dentro del nodo.
 \end{enumerate}
 
 
@@ -204,105 +203,137 @@ Para el desarrollo del presente proyecto se supone que:
 \section{6. Requerimientos}
 \label{sec:requerimientos}
 
-\begin{consigna}{red}
-Los requerimientos deben numerarse y de ser posible estar agruparlos por afinidad, por ejemplo:
+Aclaración: en este proyecto se implementarán múltiples modelos de \textit{machine learning} para evaluar su performance. Por lo tanto, los requerimientos funcionales son genéricos y aplican a todos los modelos a implementar siempre que sea posible. A partir de los requerimientos planteados, se podrá analizar las limitaciones de cada algoritmo y compararlos.
 
 \begin{enumerate}
-	\item Requerimientos funcionales
+	\item Requerimientos funcionales de los modelos de \textit{machine learning}: 
 		\begin{enumerate}
-			\item El sistema debe...
-			\item Tal componente debe...
-			\item El usuario debe poder...
+			\item El código del modelo debe estar encapsulado dentro de un módulo y debe contar con una API para acceder a las principales funciones del mismo.
+			\item El modelo debe tener la capacidad de actualizar sus pesos sin la necesidad de una actualización completa de \textit{firmware}, siempre y cuando no se modifique la arquitectura del algoritmo.
+			\item El módulo de \textit{machine learning} contará con metadata que permitirá identificar el tipo de algoritmo, versión del modelo y versión de los pesos.
+			\item El módulo de \textit{machine learning} debe permitir la extracción de muestras de validación que incluirán: datos de entrada, datos y métricas de salida y metadata del modelo. Esto facilitará la validación de los algoritmos cuando el sistema se encuentre en producción.
+			\item El módulo debe ser capaz de medir el tiempo de ejecución del algoritmo y generar métricas estadísticas del uso del CPU y RAM.
 		\end{enumerate}
 	\item Requerimientos de documentación
 		\begin{enumerate}
-			\item Requerimiento 1
-			\item Requerimiento 2 (prioridad menor)
+			\item La documentación debe mantenerse dentro del mismo repositorio de Github.
+			\item La documentación debe indicar los pasos para instalar el ambiente de desarrollo, incluyendo la instalación de librerías y módulos necesarios.
+			\item La documentación debe indicar los pasos para ejecutar cada una de las pruebas que se llevaron a cabo durante el proyecto.
+			\item La documentación debe registrar la investigación realizada en el proyecto, identificando claramente las limitaciones de las tecnologías utilizadas.
+			\item La documentación debe indicar los requerimientos mínimos recomendables de \textit{hardware} para ejecutar este tipo de aplicaciones.
 		\end{enumerate}
-	\item Requerimiento de testing...
-	\item Requerimientos de la interfaz...
-	\item Requerimientos interoperabilidad...
-	\item etc...
+	\item Requerimientos funcionales de la interfaz de comunicación
+		\begin{enumerate}
+		\item El sistema debe contar con un módulo de comunicación que permitirá enviar y recibir datos con una PC conectada por USB.
+		\item El protocolo de comunicación debe validar la integridad de los datos.
+		\item La PC debe ser capaz de comunicarse con el nodo para:
+			\begin{enumerate}
+				\item Obtener información del nodo: versión del código, metadata del modelo de \textit{machine learning}
+				\item Actualizar los pesos del algoritmo de \textit{machine learning}
+			\end{enumerate}
+		\end{enumerate}
+	\item Requerimiento de testing
+		\begin{enumerate}
+			\item Los modelos de \textit{machine learning} ejecutados en el nodo serán comparados contra las métricas obtenido de ejecutar los mismos modelos en una PC, utilizando Python.
+			\item La ejecución de las pruebas debe ser automática mediante un \textit{script}.
+		\end{enumerate}
 \end{enumerate}
-
-Leyendo los requerimientos se debe poder interpretar cómo será el proyecto y su funcionalidad.
-
-Indicar claramente cuál es la prioridad entre los distintos requerimientos y si hay requerimientos opcionales. 
-
-No olvidarse de que los requerimientos incluyen a las regulaciones y normas vigentes!!!
-
-Y al escribirlos seguir las siguientes reglas:
-\begin{itemize}
-	\item Ser breve y conciso (nadie lee cosas largas). 
-	\item Ser específico: no dejar lugar a confusiones.
-	\item Expresar los requerimientos en términos que sean cuantificables y medibles.
-\end{itemize}
-
-\end{consigna}
 
 \section{7. Historias de usuarios (\textit{Product backlog})}
 \label{sec:backlog}
 
-\begin{consigna}{red}
-Descripción: En esta sección se deben incluir las historias de usuarios y su ponderación (\textit{history points}). Recordar que las historias de usuarios son descripciones cortas y simples de una característica contada desde la perspectiva de la persona que desea la nueva capacidad, generalmente un usuario o cliente del sistema. La ponderación es un número entero que representa el tamaño de la historia comparada con otras historias de similar tipo.
+\underline{Roles:} 
+\begin{itemize}
+\item Evaluador: es quien va a evaluar si utilizar algoritmos de \textit{machine learning} en los nodos es una alternativa viable para el proyecto. Esta persona cuenta con conocimientos técnicos, aunque no necesariamente sea especialista en desarrollos de inteligencia artificial o \textit{firmware}.
+\item Desarrollador: es la persona que, una vez evaluada la viabilidad de la tecnología para un proyecto, utilizará el repositorio como base de desarrollo para un modelo de inteligencia artificial específico. Esta persona cuenta con conocimientos técnicos en programación, inteligencia artificial y sistemas embebidos.
+\end{itemize}
 
-El formato propuesto es: "como [rol] quiero [tal cosa] para [tal otra cosa]."
 
-Se debe indicar explícitamente el criterio para calcular los \textit{story points} de cada historia
-\end{consigna}
+\underline{\textit{Story points}:} 
+\begin{table}[h]
+\centering
+\renewcommand{\tabularxcolumn}{m} % we want center vertical alignment
+
+\begin{tabularx}{\textwidth}{|c|>{\raggedright}X|}
+\hline
+\textbf{Puntaje \#} & \textbf{Descripción:} \tabularnewline
+\hline
+1 & Estos son detalles menores o implementaciones simples que se estiman se pueden resolver en horas o en un solo día.\tabularnewline
+\hline
+3 & Se estima que la ejecución de este tipo de tarea puede tomar hasta un tercio del sprint. \tabularnewline
+\hline
+5 & Se espera que trabajar en este tipo de historia utilice aproximadamente dos tercios de la capacidad del sprint. \tabularnewline
+\hline
+8 & Estas son las historias más complejas o difíciles de implementar y se estima que pueden tomar todo el sprint. \tabularnewline
+\hline
+\end{tabularx}
+\end{table}
+
+
+\underline{Historias de usuario:} 
+\begin{itemize}
+\item Como evaluador, quiero tener fácil acceso al tiempo de ejecución de los algoritmos. Esto me permitirá evaluar si el consumo es demasiado elevado para, por ejemplo, un sistema que funciona con baterías (Puntos: 3).
+\item Como evaluador, quiero ver métricas de la ejecución de los algoritmos que sean independientes del microprocesador utilizado, para así poder extrapolar las conclusiones a otras plataformas (Puntos: 8).
+\item Como evaluador, quiero ver fácilmente qué tipos de algoritmos de inteligencia artificial se pueden ejecutar en sistemas embebidos de recursos limitados  (Puntos: 1).
+\item Como evaluador, quiero conocer las limitaciones de este tipo de tecnologías, para descartar rápidamente en el caso de que no sea compatible con el proyecto que se quiere desarrollar  (Puntos: 5).
+\item Como desarrollador, quiero tener instrucciones claras para configurar el entorno de desarrollo y así comenzar el desarrollo llo más pronto posible  (Puntos: 3).
+\item Como desarrollador, quiero entender las limitaciones de los algoritmos de \textit{machine learning} que se pueden ejecutar en estos sistemas, para desarrollar un modelo acorde (Puntos: 3).
+\item Como desarrollador, quiero poder actualizar los pesos del modelo fácilmente para poder iterar de forma eficiente  (Puntos: 8).
+\item Como desarrollador, quiero poder tener acceso a las variables internas del modelo siendo ejecutado en el microprocesador, de forma tal de poder validar que el algoritmo se está ejecutando según lo esperado (Puntos: 5).
+\end{itemize}
 
 \section{8. Entregables principales del proyecto}
 \label{sec:entregables}
 
-\begin{consigna}{red}
-
-Los entregables del proyecto son (ejemplo):
-
+Los entregables del proyecto son:
 \begin{itemize}
-	\item Manual de uso
-	\item Diagrama de circuitos esquemáticos
-	\item Código fuente del firmware
-	\item Diagrama de instalación
-	\item Informe final
-	\item etc...
+	\item Módulos de \textit{machine learning} con distintos modelos implementados.
+	\item Ejemplos de uso de los algoritmos.
+	\item Análisis del estado del arte y performance de los modelos.
+	\item Documentación de instalación del entorno de desarrollo.
 \end{itemize}
-
-\end{consigna}
 
 \section{9. Desglose del trabajo en tareas}
 \label{sec:wbs}
 
-\begin{consigna}{red}
-El WBS debe tener relación directa o indirecta con los requerimientos.  Son todas las actividades que se harán en el proyecto para dar cumplimiento a los requerimientos. Se recomienda mostrar el WBS mediante una lista indexada:
-
 \begin{enumerate}
-\item Grupo de tareas 1
+\item Investigación y planificación
 	\begin{enumerate}
-	\item Tarea 1 (tantas h)
-	\item Tarea 2 (tantas hs)
-	\item Tarea 3 (tantas h)
+	\item Investigación del estado del arte (32 hs)
+	\item Definición de modelos de \textit{machine learning} a implementar (24 hs)
+	\item Selección de los datasets a utilizar para las pruebas de cada modelo (24 hs)
+	\item Selección de la plataforma (microcontrolador) donde se llevarán a cabo las pruebas (24 hs)
+	\item Diseñar arquitectura de firmware del nodo (16 hs)
 	\end{enumerate}
-\item Grupo de tareas 2
+\item Desarrollo de estructura base
 	\begin{enumerate}
-	\item Tarea 1 (tantas h)
-	\item Tarea 2 (tantas h)
-	\item Tarea 3 (tantas h)
+	\item Configurar entorno de desarrollo (24 hs)
+	\item Implementar arquitectura de firmware (40 hs)
+	\item Implementar protocolo de comunicación (20 hs)
+	\item Desarrollar script de interacción nodo-PC (24 hs)
+	\item Implementar flujo del programa: adquisición de datos -> procesamiento -> predicción (40 hs)
 	\end{enumerate}
-\item Grupo de tareas 3
+\item Desarrollo de algoritmos de inteligencia artificial
 	\begin{enumerate}
-	\item Tarea 1 (tantas h)
-	\item Tarea 2 (tantas h)
-	\item Tarea 3 (tantas h)
-	\item Tarea 4 (tantas h)
-	\item Tarea 5 (tantas h)
+	\item Diseñar módulo de IA y APIs (40 hs)
+	\item Entrenar modelos en Python (40 hs)
+	\item Desplegar modelos de IA en nodo (40 hs)
+	\item Generar muestras de validación y envíar a la PC (24 hs)
+	\item Testing del funcionamiento de los algoritmos (20 hs) 
+	\item Agregar mecanismos de evaluación de performance dentro del código (20 hs)
+	\item Adaptar código para permitir la actualización de pesos del modelo (32 hs) 
+	\end{enumerate}
+\item Documentación
+	\begin{enumerate}
+	\item Documentar análisis realizado (20 hs)
+	\item Documentar conclusiones de los modelos implementados y aspectos a tomar en cuenta respecto a la plataforma utilizada. (30 hs)
+	\item Redacción del informe de avance (16 hs).
+	\item Redacción de la memoria del proyecto (40 hs).
+	\item Preparación de la presentación pública (10 hs).
 	\end{enumerate}
 \end{enumerate}
 
-Cantidad total de horas: (tantas h)
-
-Se recomienda que no haya ninguna tarea que lleve más de 40 h. 
-
-\end{consigna}
+Cantidad total de horas: (600 h)
 
 \section{10. Diagrama de Activity On Node}
 \label{sec:AoN}
